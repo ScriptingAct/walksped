@@ -1,1 +1,25 @@
+local fallThreshold = math.huge -- Height in studs above which fall damage occurs
+local fallDamageMultiplier = 0 -- Multiplier for damage based on fall distance
 
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        local lastPosition = character.HumanoidRootPart.Position
+
+        humanoid.StateChanged:Connect(function(_, newState)
+            if newState == Enum.HumanoidStateType.Seated then
+                lastPosition = character.HumanoidRootPart.Position
+            end
+        end)
+
+        humanoid.FreeFalling:Connect(function()
+            local currentPosition = character.HumanoidRootPart.Position
+            local fallDistance = lastPosition.Y - currentPosition.Y
+
+            if fallDistance > fallThreshold then
+                local damage = fallDistance * fallDamageMultiplier
+                humanoid:TakeDamage(damage)
+            end
+        end)
+    end)
+end)
