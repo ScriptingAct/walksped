@@ -3,9 +3,9 @@ local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local RunService = game:GetService("RunService")
 
-local minSpeed = 35
-local maxSpeed = 35
-local speed = 29 -- how fast WalkSpeed changes
+local minSpeed = 30
+local maxSpeed = 30
+local speed = 30 -- how fast WalkSpeed changes
 
 local time = 0
 
