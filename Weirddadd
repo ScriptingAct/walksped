@@ -1,0 +1,16 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local RunService = game:GetService("RunService")
+
+local minSpeed = 35
+local maxSpeed = 35
+local speed = 29 -- how fast WalkSpeed changes
+
+local time = 0
+
+RunService.RenderStepped:Connect(function(dt)
+	time = time + dt * speed
+	-- Oscillate WalkSpeed smoothly between minSpeed and maxSpeed
+	humanoid.WalkSpeed = minSpeed + (math.sin(time) + 1) / 2 * (maxSpeed - minSpeed)
+end)
